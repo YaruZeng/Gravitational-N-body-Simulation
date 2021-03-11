@@ -171,8 +171,6 @@ if(UNIX)
   endif()
 endif()
 
-message("JIMEDBUG: CMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}")
-
 ######################################################################
 # A few shortcuts for lists of libraries.
 ######################################################################
