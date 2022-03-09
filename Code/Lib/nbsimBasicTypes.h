@@ -15,8 +15,6 @@
 #ifndef nbsimBasicTypes_h
 #define nbsimBasicTypes_h
 
-#include "nbsimWin32ExportHeader.h"
-
 /**
 * \defgroup internal internal
 * \brief Internal stuff, not for end-users.

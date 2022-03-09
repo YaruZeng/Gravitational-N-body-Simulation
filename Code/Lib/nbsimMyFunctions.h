@@ -15,8 +15,6 @@
 #ifndef nbsimMyFunctions_h
 #define nbsimMyFunctions_h
 
-#include "nbsimWin32ExportHeader.h"
-
 /**
 * \file nbsimMyFunctions.h
 * \brief Various Utilities.
@@ -28,7 +26,7 @@ namespace nbsim
 /**
 * \brief My first function, adds two integers.
 */
-PHAS0100ASSIGNMENT2_WINEXPORT int MyFirstAddFunction(int a, int b);
+int MyFirstAddFunction(int a, int b);
 
 } // end namespace
 
