@@ -15,7 +15,6 @@
 #ifndef nbsimException_h
 #define nbsimException_h
 
-#include "nbsimWin32ExportHeader.h"
 #include <stdexcept>
 #include <ostream>
 #include <sstream>
@@ -27,7 +26,7 @@ namespace nbsim {
 * \brief Base exception class.
 * \ingroup types
 */
-class PHAS0100ASSIGNMENT2_WINEXPORT Exception : public std::exception
+class Exception : public std::exception
 {
 public:
 

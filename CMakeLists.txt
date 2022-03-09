@@ -45,12 +45,6 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 
 
 ######################################################################
-# Include extra CMake stuff for configuring this project.
-######################################################################
-include(mitkFunctionCheckCompilerFlags)
-
-
-######################################################################
 # Set main build options.
 ######################################################################
 option(BUILD_TESTING "Build Unit tests." ON)
@@ -75,14 +69,6 @@ if (NOT (CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "Debug
   message(FATAL_ERROR "Build type \"${CMAKE_BUILD_TYPE}\" is not supported.")
 endif()
 
-if(WIN32)
-  # Restrict the generated configuration to be what we configured above.
-  # No point creating project files for build types that will not compile.
-  # Note: it's set to FORCE so that both CMAKE_BUILD_TYPE and CMAKE_CONFIGURATION_TYPES match up.
-  set(CMAKE_CONFIGURATION_TYPES ${CMAKE_BUILD_TYPE} CACHE STRING "Build configurations to generate." FORCE)
-  mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
-endif()
-
 
 ######################################################################
 # Choose C++ standard. Currently 17.
@@ -91,23 +77,6 @@ set(PHAS0100ASSIGNMENT2_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS 0)
 set(CMAKE_CXX_STANDARD ${PHAS0100ASSIGNMENT2_CXX_STANDARD})
 set(CMAKE_CXX_STANDARD_REQUIRED 1)
-
-# This is necessary to avoid problems with compile feature checks.
-# CMAKE_CXX_STANDARD seems to only set the -std=c++17 flag for targets.
-# However, compile flag checks also need to be done with -std=c++11.
-# The PHAS0100ASSIGNMENT2_CXX11_FLAG variable is also used for external projects
-# build during the PHAS0100ASSIGNMENT2 super-build.
-mitkFunctionCheckCompilerFlags("-std=c++17" PHAS0100ASSIGNMENT2_CXX17_FLAG)
-if(NOT PHAS0100ASSIGNMENT2_CXX17_FLAG)
-  # Older gcc compilers use -std=c++0x
-  mitkFunctionCheckCompilerFlags("-std=c++17" PHAS0100ASSIGNMENT2_CXX17_FLAG)
-endif()
-
-
-######################################################################
-# Force MSVC runtime. Depends on BUILD_SHARED_LIBS.
-######################################################################
-include(nbsimSetupMSVCRuntime)
 
 
 ######################################################################
@@ -139,37 +108,15 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 
 ######################################################################
-# Add Optional Requirements
+# Suppress some warnings related to old Eigen library. In general not
+# a good idea to suppress warnings but these have been confirmed to be
+# unconsequential and were confusing for students learning cmake.
 ######################################################################
-if(WIN32)
-  set(_library_sub_dir "bin")
-else()
-  set(_library_sub_dir "lib")
-endif()
-
-
-######################################################################
-# Compilation specific stuff, like flags etc.
-######################################################################
-if(WIN32)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNOMINMAX /W2")
-  set(CMAKE_CXX_WARNING_LEVEL 2)
-endif(WIN32)
-
-if(WIN32 AND NOT BUILD_SHARED_LIBS)
-  add_definitions(-DPHAS0100ASSIGNMENT2_STATIC)
-endif()
-
 if(UNIX)
-  mitkFunctionCheckCompilerFlags("-Wno-deprecated-declarations" PHAS0100ASSIGNMENT2_NO_DEPRECATED_FLAG)
-  if(PHAS0100ASSIGNMENT2_NO_DEPRECATED_FLAG)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${PHAS0100ASSIGNMENT2_NO_DEPRECATED_FLAG}" CACHE STRING "FLags used by the compiler during all build types." FORCE)
-  endif()
-  mitkFunctionCheckCompilerFlags("-Wno-ignored-attributes" PHAS0100ASSIGNMENT2_NO_IGNORED_ATTRIBUTES_FLAG)
-  if(PHAS0100ASSIGNMENT2_NO_IGNORED_ATTRIBUTES_FLAG)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${PHAS0100ASSIGNMENT2_NO_IGNORED_ATTRIBUTES_FLAG}")
-  endif()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations" CACHE STRING "FLags used by the compiler during all build types." FORCE)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-ignored-attributes")
 endif()
+
 
 ######################################################################
 # OpenMP is required for this assignment.
