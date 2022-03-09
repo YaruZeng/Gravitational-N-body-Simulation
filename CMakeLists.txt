@@ -45,12 +45,6 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 
 
 ######################################################################
-# Include extra CMake stuff for configuring this project.
-######################################################################
-#include(mitkFunctionCheckCompilerFlags)
-
-
-######################################################################
 # Set main build options.
 ######################################################################
 option(BUILD_TESTING "Build Unit tests." ON)
