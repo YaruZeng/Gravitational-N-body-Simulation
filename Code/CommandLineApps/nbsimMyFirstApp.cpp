@@ -12,7 +12,7 @@
 
 =============================================================================*/
 
-#include <nbsimMyFunctions.h>
+#include <nbsimParticle.h>
 #include <nbsimExceptionMacro.h>
 #include <iostream>
 
@@ -32,9 +32,9 @@ int main(int argc, char** argv)
   {
 
     Eigen::MatrixXd m(2,2);
-    std::cout << "Printing 2x2 Eigen::MatrixXd ..." << std::endl << m << std::endl;
+    // std::cout << "Printing 2x2 Eigen::MatrixXd ..." << std::endl << m << std::endl;
 
-    std::cout << "Calculating ... " << nbsim::MyFirstAddFunction(1, 2) << std::endl;
+    // std::cout << "Calculating ... " << nbsim::MyFirstAddFunction(1, 2) << std::endl;
 
     returnStatus = EXIT_SUCCESS;
   }

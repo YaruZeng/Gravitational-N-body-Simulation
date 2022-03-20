@@ -12,17 +12,31 @@
 
 =============================================================================*/
 
-#ifndef nbsimMyFunctions_h
-#define nbsimMyFunctions_h
+#ifndef nbsimParticle_h
+#define nbsimParticle_h
+#include <Eigen/Dense>
 
 /**
-* \file nbsimMyFunctions.h
+* \file nbsimParticle.h
 * \brief Various Utilities.
 * \ingroup utilities
 */
 namespace nbsim
 {
+class Particle{
 
+  public:
+  Particle(const Eigen::Vector3d &position, const Eigen::Vector3d &velocity);
+  ~Particle();
+  Eigen::Vector3d getPosition();
+  Eigen::Vector3d getVelocity();
+  void integrateTimestep(const Eigen::Vector3d &acceleration, const double &timestep);
+
+  private:
+  Eigen::Vector3d m_position;
+  Eigen::Vector3d m_velocity;
+
+};
 /**
 * \brief My first function, adds two integers.
 */

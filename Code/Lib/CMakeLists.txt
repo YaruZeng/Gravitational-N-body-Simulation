@@ -16,7 +16,7 @@ set(PHAS0100ASSIGNMENT2_LIBRARY_NAME phas0100assignment2)
 
 set(PHAS0100ASSIGNMENT2_LIBRARY_SRCS
   nbsimBasicTypes.cpp
-  nbsimMyFunctions.cpp
+  nbsimParticle.cpp
   nbsimException.cpp
 )
 
