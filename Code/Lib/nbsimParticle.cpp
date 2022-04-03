@@ -1,26 +1,16 @@
-/*=============================================================================
-
-  PHAS0100ASSIGNMENT2: PHAS0100 Assignment 2 Gravitational N-body Simulation
-
-  Copyright (c) University College London (UCL). All rights reserved.
-
-  This software is distributed WITHOUT ANY WARRANTY; without even
-  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-  PURPOSE.
-
-  See LICENSE.txt in the top level directory for details.
-
-=============================================================================*/
-
 #include "nbsimParticle.h"
 #include <iostream>
 
 namespace nbsim {
 
-//-----------------------------------------------------------------------------
+  Particle::Particle(){
+    m_position = Eigen::Vector3d (0,0,0);
+    m_velocity = Eigen::Vector3d (0,0,0);
+  }
+
   Particle::Particle(const Eigen::Vector3d &position, const Eigen::Vector3d &velocity){
-    this->m_position = position;
-    this->m_velocity = velocity;
+    m_position = position;
+    m_velocity = velocity;
   }
 
   Particle::~Particle(){}
@@ -33,6 +23,14 @@ namespace nbsim {
     return m_velocity;
   }
 
+  void Particle::setPosition(const Eigen::Vector3d &position){
+    m_position = position;
+  }
+
+  void Particle::setVelocity(const Eigen::Vector3d &velocity){
+    m_velocity = velocity;
+  }
+  
   void Particle::integrateTimestep(const Eigen::Vector3d &acceleration, const double &timestep){
 
     Eigen::Vector3d position_new(0,0,0);
@@ -42,6 +40,14 @@ namespace nbsim {
     m_position = position_new;
     m_velocity = velocity_new;
     
+  }
+
+  std::string Particle::getName(){
+    return m_name;
+  }
+
+  void Particle::setName(const std::string &name){
+    m_name = name;
   }
 
 } // end namespace

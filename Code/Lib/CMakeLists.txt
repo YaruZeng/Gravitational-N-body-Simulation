@@ -15,9 +15,10 @@
 set(PHAS0100ASSIGNMENT2_LIBRARY_NAME phas0100assignment2)
 
 set(PHAS0100ASSIGNMENT2_LIBRARY_SRCS
-  nbsimBasicTypes.cpp
+  nbsimMassiveParticle.cpp
   nbsimParticle.cpp
   nbsimException.cpp
+  nbsimSimulator.cpp
 )
 
 set(PHAS0100ASSIGNMENT2_LIBRARY_HDRS

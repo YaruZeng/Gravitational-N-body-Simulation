@@ -1,70 +1,121 @@
-/*=============================================================================
-
-  PHAS0100ASSIGNMENT2: PHAS0100 Assignment 2 Gravitational N-body Simulation
-
-  Copyright (c) University College London (UCL). All rights reserved.
-
-  This software is distributed WITHOUT ANY WARRANTY; without even
-  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-  PURPOSE.
-
-  See LICENSE.txt in the top level directory for details.
-
-=============================================================================*/
-
 #include "catch.hpp"
 #include "nbsimCatchMain.h"
 #include "nbsimParticle.h"
+#include "nbsimMassiveParticle.h"
 #include <iostream>
 #include <vector>
 #include <cmath>
 
-TEST_CASE( "Particle", "[Test of motion]" ) {
 
-  Eigen::Vector3d p1(0,0,0);
-  Eigen::Vector3d v1(1,1,1);
-  nbsim::Particle particle1(p1,v1);
+TEST_CASE("Test of motion with a = 0", "[Particle]" ) {
 
-  //Test for a = 0
+  Eigen::Vector3d x(0,0,0);
+  Eigen::Vector3d v(1,1,1);
+  nbsim::Particle particle(x,v);
 
-  Eigen::Vector3d acceleration1(0,0,0);
-  double timestep1 = 1;
-  particle1.integrateTimestep(acceleration1, timestep1);
+  Eigen::Vector3d acceleration(0,0,0);
+  double timestep = 1;
+  particle.integrateTimestep(acceleration, timestep);
 
-  Eigen::Vector3d expect_p1(1,1,1);
-  Eigen::Vector3d expect_v1(1,1,1);
-  REQUIRE(particle1.getPosition() == expect_p1);
-  REQUIRE(particle1.getVelocity() == expect_v1);
+  Eigen::Vector3d expect_x(1,1,1);
+  Eigen::Vector3d expect_v(1,1,1);
+  REQUIRE(particle.getPosition() == expect_x);
+  REQUIRE(particle.getVelocity() == expect_v);
 
-  //Test for a = const
+}
 
-  Eigen::Vector3d acceleration2(0,2,1);
-  double timestep2 = 2;
-  particle1.integrateTimestep(acceleration2, timestep2);
 
-  Eigen::Vector3d expect_p2(3,3,3);
-  Eigen::Vector3d expect_v2(1,5,3);
-  REQUIRE(particle1.getPosition() == expect_p2);
-  REQUIRE(particle1.getVelocity() == expect_v2);
+TEST_CASE("Test of motion with a = constant", "[Particle]" ) {
 
-  //Test for a = -x(t)
+  Eigen::Vector3d x(0,0,0);
+  Eigen::Vector3d v(1,1,1);
+  nbsim::Particle particle(x,v);
 
-  Eigen::Vector3d p2(1,0,0);
-  Eigen::Vector3d v2(0,1,0);
-  nbsim::Particle particle2(p2,v2);
-  double timestep3 = 2*M_PI/1000;
-  for (int i = 0; i < 1000; ++i)
+  Eigen::Vector3d acceleration(0,2,1);
+  double timestep = 2;
+  particle.integrateTimestep(acceleration, timestep);
+
+  Eigen::Vector3d expect_x(2,2,2);
+  Eigen::Vector3d expect_v(1,5,3);
+  REQUIRE(particle.getPosition() == expect_x);
+  REQUIRE(particle.getVelocity() == expect_v);
+
+}
+
+
+TEST_CASE("Test of motion with a = -x(t)", "[Particle]" ) {
+
+  Eigen::Vector3d x(1,0,0);
+  Eigen::Vector3d v(0,1,0);
+  nbsim::Particle particle(x,v);
+  double timestep = 2*M_PI/2000;
+  for (int i = 0; i < 2000; ++i)
   {
-    Eigen::Vector3d acceleration3 = -particle2.getPosition();
-    particle2.integrateTimestep(acceleration3, timestep3);
+    Eigen::Vector3d acceleration = -particle.getPosition();
+    particle.integrateTimestep(acceleration, timestep);
   }
 
-  Eigen::Vector3d expect_p3(1,0,0);
-  Eigen::Vector3d expect_v3(0,1,0);
-  std::cout << "particle2.getPosition(): " << particle2.getPosition() << std::endl;
-  std::cout << "particle2.getVelocity(): " << particle2.getVelocity() << std::endl;
-  REQUIRE(expect_p3.isApprox(particle2.getPosition(), 0.1));
-  REQUIRE(expect_v3.isApprox(particle2.getVelocity(), 0.1));
+  Eigen::Vector3d expect_x(1,0,0);
+  Eigen::Vector3d expect_v(0,1,0);
+  REQUIRE(expect_x.isApprox(particle.getPosition(), 0.01));
+  REQUIRE(expect_v.isApprox(particle.getVelocity(), 0.01));
   
+}
+
+
+TEST_CASE( "Test of linear motion", "[MassiveParticle]" ) {
+
+  double mu = 1.0;
+  Eigen::Vector3d x(0,0,0);
+  Eigen::Vector3d v(1,1,1);
+  nbsim::MassiveParticle mp(x,v,mu);
+
+  double timestep = 1.0;
+
+  for(int i = 0; i < 5; ++i){
+    mp.integrateTimestep(timestep);
+    Eigen::Vector3d expect_v(1,1,1);
+    REQUIRE(mp.getVelocity() == expect_v);
+  }
+
+  Eigen::Vector3d expect_x(5,5,5);
+  REQUIRE(mp.getPosition() == expect_x);
+
+}
+
+
+TEST_CASE( "Motion of two bodies", "[MassiveParticle]" ) {
+
+  Eigen::Vector3d x1(1,0,0);
+  Eigen::Vector3d v1(0,0.5,0);
+  std::shared_ptr<nbsim::MassiveParticle> mp1 = std::make_shared<nbsim::MassiveParticle>(x1, v1);
+
+  Eigen::Vector3d x2(-1,0,0);
+  Eigen::Vector3d v2(0,-0.5,0);
+  std::shared_ptr<nbsim::MassiveParticle> mp2 = std::make_shared<nbsim::MassiveParticle>(x2, v2);
+
+  (*mp1).setMu(1.0);
+  (*mp2).setMu(1.0);
+  (*mp1).addAttractor(mp2);
+  (*mp2).addAttractor(mp1);
+
+  double timestep = 2*M_PI/2000;
+  double ini_dist = std::sqrt(((*mp1).getPosition()-(*mp2).getPosition()).cwiseAbs2().sum());
+  std::vector<double> diff = {(ini_dist-2)};
+
+  for (int i = 0; i < 2000; ++i){
+    
+    (*mp1).calculateAcceleration();
+    (*mp2).calculateAcceleration();
+    (*mp1).integrateTimestep(timestep);
+    (*mp2).integrateTimestep(timestep);
+    double tmp_dist = 0.0;
+    tmp_dist = std::sqrt(((*mp1).getPosition()-(*mp2).getPosition()).cwiseAbs2().sum());
+    diff.push_back(std::abs(tmp_dist - 2));
+
+  }
+
+  double max_diff = *max_element(diff.begin(),diff.end()); 
+  REQUIRE(max_diff < 0.02);
 
 }

@@ -1,20 +1,7 @@
-/*=============================================================================
-
-  PHAS0100ASSIGNMENT2: PHAS0100 Assignment 2 Gravitational N-body Simulation
-
-  Copyright (c) University College London (UCL). All rights reserved.
-
-  This software is distributed WITHOUT ANY WARRANTY; without even
-  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-  PURPOSE.
-
-  See LICENSE.txt in the top level directory for details.
-
-=============================================================================*/
-
 #ifndef nbsimParticle_h
 #define nbsimParticle_h
 #include <Eigen/Dense>
+#include <iostream>
 
 /**
 * \file nbsimParticle.h
@@ -23,24 +10,28 @@
 */
 namespace nbsim
 {
-class Particle{
+  class Particle{
 
-  public:
-  Particle(const Eigen::Vector3d &position, const Eigen::Vector3d &velocity);
-  ~Particle();
-  Eigen::Vector3d getPosition();
-  Eigen::Vector3d getVelocity();
-  void integrateTimestep(const Eigen::Vector3d &acceleration, const double &timestep);
+    public:
+    Particle();
+    Particle(const Eigen::Vector3d &position, const Eigen::Vector3d &velocity);
+    ~Particle();
 
-  private:
-  Eigen::Vector3d m_position;
-  Eigen::Vector3d m_velocity;
+    public:
+    Eigen::Vector3d getPosition();
+    Eigen::Vector3d getVelocity();
+    void setPosition(const Eigen::Vector3d &position);
+    void setVelocity(const Eigen::Vector3d &velocity);
+    void integrateTimestep(const Eigen::Vector3d &acceleration, const double &timestep);
+    std::string getName();
+    void setName(const std::string &name);
 
-};
-/**
-* \brief My first function, adds two integers.
-*/
-int MyFirstAddFunction(int a, int b);
+    protected:
+    Eigen::Vector3d m_position;
+    Eigen::Vector3d m_velocity;
+    std::string m_name = "undefined";
+
+  };
 
 } // end namespace
 
