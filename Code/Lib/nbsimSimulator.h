@@ -8,6 +8,7 @@
 
 
 namespace nbsim{
+    
     class Simulator{
 
         public:
