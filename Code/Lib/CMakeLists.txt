@@ -19,6 +19,8 @@ set(PHAS0100ASSIGNMENT2_LIBRARY_SRCS
   nbsimParticle.cpp
   nbsimException.cpp
   nbsimSimulator.cpp
+  nbsimSolarSystem.cpp
+  nbsimRandomSystem.cpp
 )
 
 set(PHAS0100ASSIGNMENT2_LIBRARY_HDRS

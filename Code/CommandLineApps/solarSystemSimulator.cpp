@@ -3,9 +3,11 @@
 #include <vector>
 #include <stdlib.h>
 #include "nbsimSimulator.h"
+#include "nbsimSolarSystem.h"
 #include <ctime>
 #include <iomanip>
 #include <chrono>
+#include <memory>
 
 static void show_usage(std::string name)
 {
@@ -18,6 +20,15 @@ static void show_usage(std::string name)
               << std::endl;
 }
 
+void Simulation(nbsim::Simulator &system){
+    
+    system.Generator();
+    system.printIniSummary();
+    system.beginSimulation();
+    system.calculateEnergy();
+    system.printResult();
+    
+}
 
 int main(int argc, char* argv[])
 {
@@ -47,14 +58,11 @@ int main(int argc, char* argv[])
 
     }
 
-    nbsim::Simulator simulator(timestep, timelength);
-    simulator.generatePlanetSet();
-    simulator.beginSimulation();
-    simulator.calculateEnergy();
+    nbsim::SolarSystem solar(timestep, timelength);
+    Simulation(solar);
 
     std::clock_t c_end = std::clock();
     auto t_end = std::chrono::high_resolution_clock::now();
-    simulator.printSummary();
 
     std::cout << "-------------------------------------------" << "\n";
     std::cout << "\n";

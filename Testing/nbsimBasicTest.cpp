@@ -73,6 +73,7 @@ TEST_CASE( "Test of linear motion", "[MassiveParticle]" ) {
   double timestep = 1.0;
 
   for(int i = 0; i < 5; ++i){
+    mp.calculateAcceleration();
     mp.integrateTimestep(timestep);
     Eigen::Vector3d expect_v(1,1,1);
     REQUIRE(mp.getVelocity() == expect_v);

@@ -13,24 +13,21 @@ namespace nbsim{
     class Simulator{
 
         public:
-        Simulator(const double &timestep, const double &timelength);
-        ~Simulator();
-        void generatePlanetSet();
+        Simulator(){};
+        ~Simulator(){};
+        virtual void Generator() = 0;
+        virtual void printIniSummary() = 0;
         void beginSimulation();
         void calculateEnergy();
-        void printSummary();
+        void printResult();
         
-        private:
+        protected:
         std::vector<std::shared_ptr<nbsim::MassiveParticle>> planet_set;
         double m_timestep;
         double m_timelength;
-        // std::vector<Eigen::Vector3d> m_beginEnergy;
-        // std::vector<Eigen::Vector3d> m_endEnergy;
-        // std::array<Eigen::Vector3d,3> m_beginEnergy = {};
-        // std::array<Eigen::Vector3d,3> m_endEnergy = {};
-        std::vector<double> m_beginEnergy={0,0,0};
         std::vector<double> m_endEnergy={0,0,0};
-    
+        
+
     };
 }
 
