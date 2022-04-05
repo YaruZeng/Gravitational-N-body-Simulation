@@ -3,8 +3,9 @@
 #include <vector>
 #include <stdlib.h>
 #include "nbsimSimulator.h"
-
-
+#include <ctime>
+#include <iomanip>
+#include <chrono>
 
 static void show_usage(std::string name)
 {
@@ -17,8 +18,12 @@ static void show_usage(std::string name)
               << std::endl;
 }
 
+
 int main(int argc, char* argv[])
 {
+    std::clock_t c_start = std::clock();
+    auto t_start = std::chrono::high_resolution_clock::now();
+
     if (argc < 5) {
         show_usage(argv[0]);
         return 0;
@@ -45,7 +50,20 @@ int main(int argc, char* argv[])
     nbsim::Simulator simulator(timestep, timelength);
     simulator.generatePlanetSet();
     simulator.beginSimulation();
+    simulator.calculateEnergy();
+
+    std::clock_t c_end = std::clock();
+    auto t_end = std::chrono::high_resolution_clock::now();
     simulator.printSummary();
+
+    std::cout << "-------------------------------------------" << "\n";
+    std::cout << "\n";
+
+    std::cout << std::fixed << std::setprecision(2) << "CPU time used: "
+              << 1000.0 * (c_end - c_start) / CLOCKS_PER_SEC << " ms\n"
+              << "Wall clock time passed: "
+              << std::chrono::duration<double, std::milli>(t_end-t_start).count()
+              << " ms\n";
 
     return 0;
 }
