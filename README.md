@@ -40,13 +40,13 @@ Use instructions
 
 After building, if you could find programs 'nbsimBasicTest', 'randSystemSimulator', 'solarSystemSimulator' under the directory of build/bin, you can now test the project or run the motion simulation of planets system as instructions following.
 
-Run Tests:
+1. Run Tests:
 '''
 cd PHAS0100Assignment2/build
 ./bin/nbsimBasicTest
 '''
 
-Run Solar System Simulation:
+2. Run Solar System Simulation:
 
 -Check help messages:
 
@@ -62,7 +62,7 @@ cd PHAS0100Assignment2/build
 ./bin/solarSystemSimulator ts TIMESTEP tl TIMELENGTH
 '''
 
-Run Random System Simulation:
+3. Run Random System Simulation:
 
 -Check help messages:
 
@@ -89,7 +89,7 @@ cd PHAS0100Assignment2/build
 Summary of Simulator Performance
 ----------------
 
-PartB 4
+###PartB 4
 
 Summary of Energy with various timesteps and timelength 100:
 
@@ -109,7 +109,7 @@ When the timesteps are chosen from 0.000274 to 1, the total energy remains betwe
 However, as the timestep increases, the error becomes larger with the total end energy from a negative value to a positive value at the turning point of around 0.274. 
 
 
-PartB 5
+###PartB 5
 
 Summary of runtime with various timesteps:
 
@@ -127,7 +127,7 @@ Summary of runtime with various timesteps:
 Among the timesteps I choose, the simulation with the smallest timestep has the longest runtime. As the timestep grows, the runtime decreases. I think 0.001 is a good timestep which balances the accuracy(-0.158243 vs -0.169514) and the runtime(84306.26ms, namely 84.3s) best. 
 
 
-PartB 7
+###PartB 7
 
 Summary of runtime in OpenMP with various thread numbers:
 
