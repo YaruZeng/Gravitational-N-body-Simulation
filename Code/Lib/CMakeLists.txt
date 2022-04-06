@@ -21,6 +21,8 @@ set(PHAS0100ASSIGNMENT2_LIBRARY_SRCS
   nbsimSimulator.cpp
   nbsimSolarSystem.cpp
   nbsimRandSystem.cpp
+  nbsimSimulatorMP.cpp
+  nbsimRandSystemMP.cpp
 )
 
 set(PHAS0100ASSIGNMENT2_LIBRARY_HDRS

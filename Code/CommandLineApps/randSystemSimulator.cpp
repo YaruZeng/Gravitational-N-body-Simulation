@@ -3,25 +3,42 @@
 #include <vector>
 #include <stdlib.h>
 #include "nbsimSimulator.h"
+#include "nbsimSimulatorMP.h"
 #include "nbsimRandSystem.h"
+#include "nbsimRandSystemMP.h"
 #include <ctime>
 #include <iomanip>
 #include <chrono>
 #include <memory>
+#include <omp.h>
 
 static void show_usage(std::string name)
 {
     std::cerr << "Usage: " << name << " <option(s)> SOURCES\n"
               << "Options:\n"
+              << "Get the Help Message: \n"
               << "\t-h, --help\t\t\tShow this help message\n"
               << "Run the Random System Simulator: \n"
+              << "Compolsary: \n"
               << "\tts, timestep TIMESTEP\t\tSpecify the timestep size of the motion\n"
               << "\ttl, timelength TIMELENGTH\tSpecify the length of motion time\n"
               << "\tnum, particle_num NUMBER\tSpecify the number of random particles\n"
+              << "Optional:\n"
+              << "\t-MP, -openmp\t\tRun the simulator using OpenMP parallelization\n"
               << std::endl;
 }
 
 void Simulation(nbsim::Simulator &system){
+    
+    system.Generator();
+    system.printIniSummary();
+    system.beginSimulation();
+    system.calculateEnergy();
+    system.printEndEnergy();
+    
+}
+
+void SimulationMP(nbsim::SimulatorMP &system){
     
     system.Generator();
     system.printIniSummary();
@@ -43,6 +60,7 @@ int main(int argc, char* argv[])
 
     double timestep = 0;
     double timelength = 0;
+    int openmp = 0;
     int particle_num = 0;
 
     for (int i = 1; i < argc; ++i) {
@@ -60,11 +78,23 @@ int main(int argc, char* argv[])
         else if ((arg == "num") || (arg == "particle_num")) {
             particle_num = atoi(argv[++i]); 
         }
+        else if ((arg == "-MP") || (arg == "-openmp")) {
+            openmp = 1; 
+        } 
 
     }
 
-    nbsim::RandSystem random(timestep, timelength, particle_num);
-    Simulation(random);
+    if (openmp == 0){
+        nbsim::RandSystem random(timestep, timelength, particle_num);
+        Simulation(random);
+    }
+    else
+    {
+        omp_set_num_threads (2);
+        nbsim::RandSystemMP random(timestep, timelength, particle_num);
+        SimulationMP(random);
+    }
+
 
     std::clock_t c_end = std::clock();
     auto t_end = std::chrono::high_resolution_clock::now();
