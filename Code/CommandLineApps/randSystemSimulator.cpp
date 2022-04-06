@@ -3,7 +3,7 @@
 #include <vector>
 #include <stdlib.h>
 #include "nbsimSimulator.h"
-#include "nbsimSolarSystem.h"
+#include "nbsimRandSystem.h"
 #include <ctime>
 #include <iomanip>
 #include <chrono>
@@ -17,6 +17,7 @@ static void show_usage(std::string name)
               << "Run the Random System Simulator: \n"
               << "\tts, timestep TIMESTEP\t\tSpecify the timestep size of the motion\n"
               << "\ttl, timelength TIMELENGTH\tSpecify the length of motion time\n"
+              << "\tnum, particle_num NUMBER\tSpecify the number of random particles\n"
               << std::endl;
 }
 
@@ -26,7 +27,6 @@ void Simulation(nbsim::Simulator &system){
     system.printIniSummary();
     system.beginSimulation();
     system.calculateEnergy();
-    system.printEndPosition();
     system.printEndEnergy();
     
 }
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
     std::clock_t c_start = std::clock();
     auto t_start = std::chrono::high_resolution_clock::now();
 
-    if (argc < 5) {
+    if (argc < 7) {
         show_usage(argv[0]);
         return 0;
     }
@@ -57,11 +57,14 @@ int main(int argc, char* argv[])
         else if ((arg == "tl") || (arg == "timelength")) {
             timelength = atof(argv[++i]); 
         }
+        else if ((arg == "num") || (arg == "particle_num")) {
+            particle_num = atoi(argv[++i]); 
+        }
 
     }
 
-    nbsim::SolarSystem solar(timestep, timelength);
-    Simulation(solar);
+    nbsim::RandSystem random(timestep, timelength, particle_num);
+    Simulation(random);
 
     std::clock_t c_end = std::clock();
     auto t_end = std::chrono::high_resolution_clock::now();

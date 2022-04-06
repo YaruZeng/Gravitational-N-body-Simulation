@@ -19,14 +19,16 @@ namespace nbsim{
         virtual void printIniSummary() = 0;
         void beginSimulation();
         void calculateEnergy();
-        void printResult();
+        void printEndPosition();
+        void printEndEnergy();
         
         protected:
         std::vector<std::shared_ptr<nbsim::MassiveParticle>> planet_set;
         double m_timestep;
         double m_timelength;
-        std::vector<double> m_endEnergy={0,0,0};
-        
+        double m_Energy_total;
+        double m_Energy_kinetic;
+        double m_Energy_potential;
 
     };
 }

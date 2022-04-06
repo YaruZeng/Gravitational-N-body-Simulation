@@ -15,6 +15,7 @@
 set(_command_line_apps
   nbsimMyFirstApp
   solarSystemSimulator
+  randSystemSimulator
 )
 
 foreach(_app ${_command_line_apps})

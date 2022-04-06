@@ -53,9 +53,7 @@ namespace nbsim {
         std::cout << "----------------- Start Energy -----------------" << "\n";
         std::cout << "\n";
         std::cout << "Total Energy: " << m_beginEnergy[0] << "\n";
-        std::cout << "\n";
         std::cout << "Kinetic Energy: " << m_beginEnergy[1] << "\n";
-        std::cout << "\n";
         std::cout << "Potential Energy: " << m_beginEnergy[2] << "\n";
         std::cout << "\n";
 
@@ -63,7 +61,7 @@ namespace nbsim {
         std::cout << "\n";
         for (auto item : nbsim::solarSystemData){
             std::cout << item.name << ": " << "(" << item.position[0] << ", " << item.position[1] << ", " << item.position[2] << ")" << "\n";
-            std::cout << "\n";
         }
+        std::cout << "\n";
     }
 }

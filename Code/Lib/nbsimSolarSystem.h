@@ -10,7 +10,7 @@ namespace nbsim{
         SolarSystem(const double &timestep, const double &timelength);
         ~SolarSystem(){};
         virtual void Generator();
-        void printIniSummary();
+        virtual void printIniSummary();
 
         private:
         std::vector<double> m_beginEnergy={0,0,0};

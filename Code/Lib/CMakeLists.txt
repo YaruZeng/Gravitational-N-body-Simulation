@@ -20,7 +20,7 @@ set(PHAS0100ASSIGNMENT2_LIBRARY_SRCS
   nbsimException.cpp
   nbsimSimulator.cpp
   nbsimSolarSystem.cpp
-  nbsimRandomSystem.cpp
+  nbsimRandSystem.cpp
 )
 
 set(PHAS0100ASSIGNMENT2_LIBRARY_HDRS
@@ -32,3 +32,7 @@ add_library(${PHAS0100ASSIGNMENT2_LIBRARY_NAME} ${PHAS0100ASSIGNMENT2_LIBRARY_HD
 
 target_link_libraries(${PHAS0100ASSIGNMENT2_LIBRARY_NAME} PRIVATE ${ALL_THIRD_PARTY_LIBRARIES})
 
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(${PHAS0100ASSIGNMENT2_LIBRARY_NAME} PUBLIC OpenMP::OpenMP_CXX)
+endif()
