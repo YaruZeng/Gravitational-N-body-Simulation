@@ -16,9 +16,9 @@ static void show_usage(std::string name)
 {
     std::cerr << "Usage: " << name << " <option(s)> SOURCES\n"
               << "Options:\n"
-              << "Get the Help Message: \n"
+              << "1. Get help message: \n"
               << "\t-h, --help\t\t\tShow this help message\n"
-              << "Run the Random System Simulator: \n"
+              << "2. Run the Random System Simulator: \n"
               << "Compolsary: \n"
               << "\tts, timestep TIMESTEP\t\tSpecify the timestep size of the motion\n"
               << "\ttl, timelength TIMELENGTH\tSpecify the length of motion time\n"
@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-        omp_set_num_threads (2);
+        omp_set_num_threads (6);
         nbsim::RandSystemMP random(timestep, timelength, particle_num);
         SimulationMP(random);
     }

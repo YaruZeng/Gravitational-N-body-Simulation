@@ -10,16 +10,30 @@
 
 namespace nbsim{
 
-    class Simulator{
+    class Simulator{ // define an abtract simulator class to achieve polymorphism of generator
 
         public:
         Simulator(){};
         ~Simulator(){};
+
+        public:
+
+        // generate planet set, add all other MassiveParticle bodies to their list of attractors
         virtual void Generator() = 0;
+
+        // print start position and energy
         virtual void printIniSummary() = 0;
+
+        // act simulation
         void beginSimulation();
+
+        // calculate Energy after the simulation
         void calculateEnergy();
+
+        // print positions of the planets at the end of the simulation
         void printEndPosition();
+
+        // print energies of the planets at the end of the simulation
         void printEndEnergy();
         
         protected:

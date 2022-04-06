@@ -4,11 +4,14 @@
 
 namespace nbsim{
 
-    class SolarSystem: public nbsim::Simulator{
+    // create a generator of the Simulator for Solar System
+    class SolarSystem: public nbsim::Simulator{ 
 
         public:
         SolarSystem(const double &timestep, const double &timelength);
         ~SolarSystem(){};
+
+        public:
         virtual void Generator();
         virtual void printIniSummary();
 

@@ -3,11 +3,7 @@
 #include <Eigen/Dense>
 #include <iostream>
 
-/**
-* \file nbsimParticle.h
-* \brief Various Utilities.
-* \ingroup utilities
-*/
+
 namespace nbsim
 {
   class Particle{
@@ -18,13 +14,26 @@ namespace nbsim
     ~Particle();
 
     public:
+    // get the current position of the object
     Eigen::Vector3d getPosition();
+
+    // get the current velocity of the object
     Eigen::Vector3d getVelocity();
-    void setPosition(const Eigen::Vector3d &position);
-    void setVelocity(const Eigen::Vector3d &velocity);
+
+    // update the position and velocity after a timestep
     void integrateTimestep(const Eigen::Vector3d &acceleration, const double &timestep);
+
+    // get name of the particle
     std::string getName();
+
+    // set name of the particle
     void setName(const std::string &name);
+
+    // set the current position of the object
+    void setPosition(const Eigen::Vector3d &position);
+
+    // set the current velocity of the object
+    void setVelocity(const Eigen::Vector3d &velocity);
 
     protected:
     Eigen::Vector3d m_position;

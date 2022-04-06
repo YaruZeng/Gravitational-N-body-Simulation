@@ -6,10 +6,14 @@
 
 namespace nbsim{
 
+    // use OpenMP to optimise the performance
     class RandSystemMP: public nbsim::SimulatorMP{
+        
         public:
         RandSystemMP(const double &timestep, const double &timelength, const int &num);
         ~RandSystemMP(){};
+
+        public:
         virtual void Generator();
         virtual void printIniSummary();
 

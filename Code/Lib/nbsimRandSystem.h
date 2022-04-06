@@ -6,10 +6,13 @@
 
 namespace nbsim{
 
+    // create a generator of the Simulator for Random System
     class RandSystem: public nbsim::Simulator{
         public:
         RandSystem(const double &timestep, const double &timelength, const int &num);
         ~RandSystem(){};
+
+        public:
         virtual void Generator();
         virtual void printIniSummary();
 

@@ -10,6 +10,7 @@
 
 namespace nbsim{
 
+    // use OpenMP to optimise the performance
     class SimulatorMP{
 
         public:

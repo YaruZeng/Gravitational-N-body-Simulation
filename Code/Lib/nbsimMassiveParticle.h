@@ -15,12 +15,24 @@ namespace nbsim{
       MassiveParticle(const std::string &name, const Eigen::Vector3d &position, const Eigen::Vector3d &velocity, const double &mu);
 
       public:
-      double getMu(); //returns the gravitational parameter
+
+      //get the gravitational parameter
+      double getMu(); 
+
+      //set the gravitational parameter
       void setMu(const double &mu);
-      void addAttractor(std::shared_ptr<MassiveParticle> attractor); //add an attractor
-      void removeAttractor(std::shared_ptr<MassiveParticle> attractor); //remove an attractor
-      void calculateAcceleration(); //calculates the gravitational acceleration and stores the result as a Vector3d data member
-      void integrateTimestep(const double &timestep); //updates the position and velocity as though a duration of length timestep has passed
+
+      //add an attractor
+      void addAttractor(std::shared_ptr<MassiveParticle> attractor); 
+
+      //remove an attractor
+      void removeAttractor(std::shared_ptr<MassiveParticle> attractor); 
+
+      //calculate the gravitational acceleration
+      void calculateAcceleration(); 
+
+      //update the position and velocity after a timestep has passed
+      void integrateTimestep(const double &timestep); 
 
       private:
       std::vector<std::shared_ptr<MassiveParticle>> vec_attractors;
