@@ -28,10 +28,12 @@ Build Instructions
 If you want to test or use this project, it can be built by the following instructions. In Linux terms: 
 
 ''' 
+
 mkdir PHAS0100Assignment2-build
 cd PHAS0100Assignment2-build
 cmake ..
 make
+
 '''
 
 
@@ -42,8 +44,10 @@ After building, if you could find programs 'nbsimBasicTest', 'randSystemSimulato
 
 1. Run Tests:
 '''
+
 cd PHAS0100Assignment2/build
 ./bin/nbsimBasicTest
+
 '''
 
 2. Run Solar System Simulation:
@@ -51,15 +55,19 @@ cd PHAS0100Assignment2/build
 -Check help messages:
 
 '''
+
 cd PHAS0100Assignment2/build
 ./bin/solarSystemSimulator -h
+
 '''
 
 -Run the simulation by specifying motion timestep and timelength:
 
 '''
+
 cd PHAS0100Assignment2/build
 ./bin/solarSystemSimulator ts TIMESTEP tl TIMELENGTH
+
 '''
 
 3. Run Random System Simulation:
@@ -67,29 +75,35 @@ cd PHAS0100Assignment2/build
 -Check help messages:
 
 '''
+
 cd PHAS0100Assignment2/build
 ./bin/randSystemSimulator -h
+
 '''
 
 -Run the simulation by specifying motion timestep, timelength, and number of particles:
 
 '''
+
 cd PHAS0100Assignment2/build
 ./bin/randSystemSimulator ts TIMESTEP tl TIMELENGTH num PARTICLE_NUMBER
+
 '''
 
 -Run the simulation by specifying motion timestep, timelength, and number of particles  in OpenMP parallelisation:
 
 '''
+
 cd PHAS0100Assignment2/build
 ./bin/randSystemSimulator ts TIMESTEP tl TIMELENGTH num PARTICLE_NUMBER -MP
+
 '''
 
 
 Summary of Simulator Performance
 ----------------
 
-###PartB 4
+### PartB 4
 
 Summary of Energy with various timesteps and timelength 100:
 
@@ -109,7 +123,7 @@ When the timesteps are chosen from 0.000274 to 1, the total energy remains betwe
 However, as the timestep increases, the error becomes larger with the total end energy from a negative value to a positive value at the turning point of around 0.274. 
 
 
-###PartB 5
+### PartB 5
 
 Summary of runtime with various timesteps:
 
@@ -127,7 +141,7 @@ Summary of runtime with various timesteps:
 Among the timesteps I choose, the simulation with the smallest timestep has the longest runtime. As the timestep grows, the runtime decreases. I think 0.001 is a good timestep which balances the accuracy(-0.158243 vs -0.169514) and the runtime(84306.26ms, namely 84.3s) best. 
 
 
-###PartB 7
+### PartB 7
 
 Summary of runtime in OpenMP with various thread numbers:
 
