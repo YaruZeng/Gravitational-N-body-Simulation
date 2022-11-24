@@ -27,14 +27,12 @@ Build Instructions
 
 If you want to test or use this project, it can be built by the following instructions. In Linux terms: 
 
-''' 
-
+```
 mkdir PHAS0100Assignment2-build
 cd PHAS0100Assignment2-build
 cmake ..
 make
-
-'''
+```
 
 
 Use instructions
@@ -43,61 +41,51 @@ Use instructions
 After building, if you could find programs 'nbsimBasicTest', 'randSystemSimulator', 'solarSystemSimulator' under the directory of build/bin, you can now test the project or run the motion simulation of planets system as instructions following.
 
 1. Run Tests:
-'''
 
+```
 cd PHAS0100Assignment2/build
 ./bin/nbsimBasicTest
-
-'''
+```
 
 2. Run Solar System Simulation:
 
 -Check help messages:
 
-'''
-
+```
 cd PHAS0100Assignment2/build
 ./bin/solarSystemSimulator -h
-
-'''
+```
 
 -Run the simulation by specifying motion timestep and timelength:
 
-'''
-
+```
 cd PHAS0100Assignment2/build
 ./bin/solarSystemSimulator ts TIMESTEP tl TIMELENGTH
+```
 
-'''
 
 3. Run Random System Simulation:
 
 -Check help messages:
 
-'''
-
+```
 cd PHAS0100Assignment2/build
 ./bin/randSystemSimulator -h
-
-'''
+```
 
 -Run the simulation by specifying motion timestep, timelength, and number of particles:
 
-'''
-
+```
 cd PHAS0100Assignment2/build
 ./bin/randSystemSimulator ts TIMESTEP tl TIMELENGTH num PARTICLE_NUMBER
-
-'''
+```
 
 -Run the simulation by specifying motion timestep, timelength, and number of particles  in OpenMP parallelisation:
 
-'''
-
+```
 cd PHAS0100Assignment2/build
 ./bin/randSystemSimulator ts TIMESTEP tl TIMELENGTH num PARTICLE_NUMBER -MP
-
-'''
+```
 
 
 Summary of Simulator Performance
